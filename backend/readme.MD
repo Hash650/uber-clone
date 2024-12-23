@@ -170,3 +170,94 @@ headers
   }
 }
 ```
+
+## Login Captain
+
+**Description:** This route authenticates and logs in a captain.
+
+**HTTP Request:** `POST /captains/login`
+
+**Request Body:**
+- `email` (string, required): The email of the captain. Must be a valid email address.
+- `password` (string, required): The password of the captain. Must be at least 6 characters long.
+
+**Example Request:**
+```JSON
+{
+  "email": "john.smith@example.com",
+  "password": "password123"
+}
+```
+
+**Example Response:**
+```JSON
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Smith"
+    },
+    "email": "john.smith@example.com",
+    "status": "inactive",
+    "vehicle": {
+      "color": "black",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "socketId": null
+  }
+}
+```
+
+## Get Captain Profile
+
+**Description:** This route retrieves the authenticated captain's profile information.
+
+**HTTP Request:** `GET /captains/profile`
+
+**Authentication:** Requires a valid JWT token in the request cookies or Authorization header.
+
+**Example Response:**
+```JSON
+{
+  "_id": "captain_id_here",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Smith"
+  },
+  "email": "john.smith@example.com",
+  "status": "inactive",
+  "vehicle": {
+    "color": "black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  },
+  "socketId": null
+}
+```
+
+## Logout Captain
+
+**Description:** This route logs out the captain by clearing the authentication token and blacklisting it.
+
+**HTTP Request:** `GET /captains/logout`
+
+**Authentication:** Requires a valid JWT token in the request cookies or Authorization header.
+
+**Example Authorization:**
+```JSON
+{
+  "authorization": "bearer <token>"
+}
+```
+
+**Example Response:**
+```JSON
+{
+  "message": "Logged out successfully"
+}
+```
